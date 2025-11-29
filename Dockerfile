@@ -28,8 +28,8 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Create a file named 'nginx.conf' in your project root with the content below
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80 for the web server
-EXPOSE 80
+# Expose port 8080 for the web server
+EXPOSE 8080
 
 # Start Nginx when the container runs
 CMD ["nginx", "-g", "daemon off;"]
