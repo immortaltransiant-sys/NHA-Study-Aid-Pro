@@ -1,0 +1,15 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: wolf
+  namespace: gen-lang-client-0652849812
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/gen-lang-client-0652849812/wolf-frontend # Your built image
+        ports:
+        - containerPort: 8080
+        command: ["/usr/sbin/nginx"]
+        args: ["-g", "daemon off;"]
+      timeoutSeconds: 300 
