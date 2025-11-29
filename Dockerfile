@@ -24,12 +24,14 @@ FROM nginx:alpine
 # Copy the built files from the builder stage to Nginx's public directory
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy a custom Nginx configuration (optional, but good for SPAs)
-# Create a file named 'nginx.conf' in your project root with the content below
+# Copy a custom Nginx configuration 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 8080 for the web server
 EXPOSE 8080
+
+# Add a healthcheck to verify Nginx is running and responding
+HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=3 CMD curl --fail http://localhost:8080/ || exit 1
 
 # Start Nginx when the container runs
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
